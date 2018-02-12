@@ -29,7 +29,7 @@ class Price:
 
 	def priceHistorical(self, from_curr, to_curr, markets, ts=None, e=None, extraParams=None,
 						sign=False, tryConversion=True):
-		return self.__get_price(self.__historicalurl, from_curr, to_curr, markets, e, extraParams, sign, tryConversion)
+		return self.__get_price(self.__historicalurl, from_curr, to_curr, markets, e, extraParams, sign, tryConversion, ts)
 
 	def generateAvg(self, from_curr, to_curr, markets, extraParams=None, sign=False, tryConversion=True):
 		return self.__get_avg(self.__generateavgurl, from_curr, to_curr, markets, extraParams, sign, tryConversion)
