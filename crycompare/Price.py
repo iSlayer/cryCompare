@@ -120,8 +120,6 @@ def __get_url(url):
 		raw_data.raise_for_status()
 		return False
 	try:
-		if isinstance(raw_data.text, unicode):
-			raise ValueError('Object returned is of type unicode. Cannot parse to str in Python 2.')
+		return raw_data.json()
 	except NameError:
-		pass
-	return raw_data.json()
+		raise ValueError('Cannot parse to json.')
