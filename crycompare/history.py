@@ -54,6 +54,6 @@ def __get_url(url):
 		raw_data.raise_for_status()
 		return False
 	try:
-		return raw_data.json()
+		return raw_data.json()['Data']
 	except NameError:
 		raise ValueError('Cannot parse to json.')
