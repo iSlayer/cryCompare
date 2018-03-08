@@ -4,6 +4,8 @@ Python wrapper for Crypto Compare public API
 Following requests are supported:
 - CoinList
 - Price
+- PriceMulti
+- PriceMultiFull
 - PriceHistorical
 - CoinSnapshot
 - CoinSnapshotFullById
@@ -14,15 +16,17 @@ Following requests are supported:
 Wrapper requires following python modules:
 - requests
 
-Requests are devided into two classes:
-- Price
-- History
+Usage
 
-Price class methods: price, priceMulti, priceMultiFull, generateAvg, dayAvg, priceHistorical, coinSnapshot, coinSnahpshotFullById.
+```
+from crycompare import price as p
+print(p.coinSnapshot('btc', 'usd'))
+```
+
+price module: price, priceMulti, priceMultiFull, generateAvg, dayAvg, priceHistorical, coinSnapshot, coinSnahpshotFullById.
 For detailed documentation visit CryptoCompare API website.
 
-History class methods: histoMinute, histoHour, histoDay
+history modyle: histoMinute, histoHour, histoDay.
 For detailed documentation visit CryptoCompare API website.
 
 CryptoCompare API Documentation can be found at https://www.cryptocompare.com/api/#introduction
-
