@@ -16,10 +16,10 @@ Wrapper requires following python modules:
 
 Usage
 
-'''
+```
 from crycompare import price as p
 print(p.coinSnapshot('btc', 'usd'))
-'''
+```
 
 price module: price, priceMulti, priceMultiFull, generateAvg, dayAvg, priceHistorical, coinSnapshot, coinSnahpshotFullById.
 For detailed documentation visit CryptoCompare API website.
