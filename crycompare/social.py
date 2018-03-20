@@ -4,11 +4,24 @@ __socialurl = 'https://www.cryptocompare.com/api/data/socialstats/?'
 __miningurl = 'https://www.cryptocompare.com/api/data/miningequipment/'
 
 
-def socialStats(id):
-    return __get_data(__socialurl, id)
+def social_stats(coin_id):
+    """
+    Get CryptoCompare website, Facebook, code repository, Twitter and Reddit
+    data for coins. If called with the id of a cryptopian you just get data
+    from CryptoCompare website that is available to the public.
+
+    :param coin_id: Id of a coin
+    :return: dict
+    """
+    return __get_data(__socialurl, coin_id)
 
 
-def miningEquipment():
+def mining_equipment():
+    """
+    Get all the mining equipment available on the website.
+
+    :return: dict
+    """
     return __get_url(__miningurl)
 
 
@@ -32,6 +45,6 @@ def __get_url(url):
         raw_data.raise_for_status()
         return False
     try:
-        return raw_data.json()['Data']
+        return raw_data.json()
     except NameError:
         raise ValueError('Cannot parse to json.')
