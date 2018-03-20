@@ -1,21 +1,26 @@
 import requests
 
-
 __histominuteurl = 'https://min-api.cryptocompare.com/data/histominute?'
 __histohoururl = 'https://min-api.cryptocompare.com/data/histohour?'
 __histodayurl = 'https://min-api.cryptocompare.com/data/histoday?'
 
 
-def histoMinute(from_curr, to_curr, e=None, extraParams=None, sign=False, tryConversion=True, aggregate=None, limit=None, toTs=None):
-	return __get_price(__histominuteurl, from_curr, to_curr, e, extraParams, sign, tryConversion, aggregate, limit, toTs)
+def histo_minute(from_curr, to_curr, e=None, extraParams=None, sign=False,
+				 tryConversion=True, aggregate=None, limit=None, toTs=None):
+	return __get_price(__histominuteurl, from_curr, to_curr, e, extraParams, sign,
+					   tryConversion, aggregate, limit, toTs)
 
 
-def histoHour(from_curr, to_curr, e=None, extraParams=None, sign=False, tryConversion=True, aggregate=None, limit=None, toTs=None):
-	return __get_price(__histohoururl, from_curr, to_curr, e, extraParams, sign, tryConversion, aggregate, limit, toTs)
+def histo_hour(from_curr, to_curr, e=None, extraParams=None, sign=False,
+			   tryConversion=True, aggregate=None, limit=None, toTs=None):
+	return __get_price(__histohoururl, from_curr, to_curr, e, extraParams, sign,
+					   tryConversion, aggregate, limit, toTs)
 
 
-def histoDay(from_curr, to_curr, e=None, extraParams=None, sign=False, tryConversion=True, aggregate=None, limit=None, toTs=None, allData=False):
-	return __get_price(__histodayurl, from_curr, to_curr, e, extraParams, sign, tryConversion, aggregate, limit, toTs, allData)
+def histo_day(from_curr, to_curr, e=None, extraParams=None, sign=False,
+			  tryConversion=True, aggregate=None, limit=None, toTs=None, allData=False):
+	return __get_price(__histodayurl, from_curr, to_curr, e, extraParams, sign,
+					   tryConversion, aggregate, limit, toTs, allData)
 
 
 def __get_price(baseurl, from_curr, to_curr, e=None, extraParams=None, sign=False,
