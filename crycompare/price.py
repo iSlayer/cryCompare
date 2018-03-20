@@ -1,62 +1,212 @@
 import requests
 
-__coinlisturl = 'https://www.cryptocompare.com/api/data/coinlist/'
-__priceurl = 'https://min-api.cryptocompare.com/data/price?'
-__pricemultiurl = 'https://min-api.cryptocompare.com/data/pricemulti?'
-__pricemultifullurl = 'https://min-api.cryptocompare.com/data/pricemultifull?'
-__generateavgurl = 'https://min-api.cryptocompare.com/data/generateAvg?'
-__dayavgurl = 'https://min-api.cryptocompare.com/data/dayAvg?'
-__historicalurl = 'https://min-api.cryptocompare.com/data/pricehistorical?'
-__coinsnapshoturl = 'https://www.cryptocompare.com/api/data/coinsnapshot/?'
-__coinsnapshotfull = 'https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?'
-__toppairsurl = 'https://min-api.cryptocompare.com/data/top/pairs?'
+__cl_url = 'https://www.cryptocompare.com/api/data/coinlist/'
+__p_url = 'https://min-api.cryptocompare.com/data/price?'
+__pm_url = 'https://min-api.cryptocompare.com/data/pricemulti?'
+__pmf_url = 'https://min-api.cryptocompare.com/data/pricemultifull?'
+__avg_url = 'https://min-api.cryptocompare.com/data/generateAvg?'
+__davg_url = 'https://min-api.cryptocompare.com/data/dayAvg?'
+__h_url = 'https://min-api.cryptocompare.com/data/pricehistorical?'
+__cs_url = 'https://www.cryptocompare.com/api/data/coinsnapshot/?'
+__csf_url = 'https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?'
+__tp_url = 'https://min-api.cryptocompare.com/data/top/pairs?'
 
 
-def coinList():
-    return __get_url(__coinlisturl)
+def coin_list():
+    """
+    Get general info for all the coins available on the website.
+
+    :return: dict
+    """
+    return __get_url(__cl_url)
 
 
-def price(from_curr, to_curr, e=None, extraParams=None, sign=False, tryConversion=True):
-    return __get_price(__priceurl, from_curr, to_curr, e, extraParams, sign, tryConversion)
+def price(from_curr, to_curr, e=None, extra_params=None,
+          sign=False, try_conversion=True):
+    """
+    Get the latest price for a list of one or more currencies.
+    Really fast, 20-60 ms. Cached each 10 seconds
+
+    :param from_curr: From symbol
+    :param to_curr: To symbol
+    :param e: Name of exchanges, include multiple
+    :param extra_params: Name of your application
+    :param sign: If set to true, the server will sign the requests.
+    :param try_conversion
+
+    :return: dict
+    """
+    return __get_price(__p_url, from_curr, to_curr, e, extra_params,
+                       sign, try_conversion)
 
 
-def priceMulti(from_curr, to_curr, e=None, extraParams=None, sign=False, tryConversion=True):
-    return __get_price(__pricemultiurl, from_curr, to_curr, e, extraParams, sign, tryConversion)
+def price_multi(from_curr, to_curr, e=None, extra_params=None,
+                sign=False, try_conversion=True):
+    """
+    Get a matrix of currency prices.
+
+    :param from_curr: From symbol
+    :param to_curr: To symbol
+    :param e: Name of exchanges, include multiple
+    :param extra_params: Name of your application
+    :param sign: If set to true, the server will sign the requests.
+    :param try_conversion: (default True )If set to false, it will try to get
+    values without using any conversion at all
+
+    :return: dict
+    """
+    return __get_price(__pm_url, from_curr, to_curr, e, extra_params,
+                       sign, try_conversion)
 
 
-def priceMultiFull(from_curr, to_curr, e=None, extraParams=None, sign=False, tryConversion=True):
-    return __get_price(self.__pricemultifullurl, from_curr, to_curr, e, extraParams, sign, tryConversion)
+def price_multi_full(from_curr, to_curr, e=None, extra_params=None,
+                     sign=False, try_conversion=True):
+    """
+    Get all the current trading info (price, vol, open, high, low etc)
+    of any list of cryptocurrencies in any other currency that you need.
+    If the crypto does not trade directly into the toSymbol requested,
+    BTC will be used for conversion.
+
+    :param from_curr: From symbol
+    :param to_curr: To symbol
+    :param e: Name of exchanges, include multiple
+    :param extra_params: Name of your application
+    :param sign: If set to true, the server will sign the requests.
+    :param try_conversion: (default True )If set to false, it will try to get
+    values without using any conversion at all
+
+    :return: dict
+    """
+    return __get_price(__pmf_url, from_curr, to_curr, e, extra_params,
+                       sign, try_conversion)
 
 
-def priceHistorical(from_curr, to_curr, markets, ts=None, e=None, extraParams=None,
-                    sign=False, tryConversion=True):
-    return __get_price(__historicalurl, from_curr, to_curr, markets, ts, e, extraParams, sign, tryConversion)
+def price_historical(from_curr, to_curr, markets, ts=None, e=None,
+                     extra_params=None, sign=False, try_conversion=True):
+    """
+    Get the price of any cryptocurrency in any other currency that you need
+    at a given timestamp. The price comes from the daily info - so it would be
+    the price at the end of the day GMT based on the requested TS.
+
+    :param from_curr: From symbol
+    :param to_curr: To symbol
+    :param markets: Name of exchanges. Include multiple
+    :param ts: Time stamp
+    :param e: Name of exchanges, include multiple
+    :param extra_params: Name of your application
+    :param sign: If set to true, the server will sign the requests.
+    :param try_conversion: (default True )If set to false, it will try to get
+    values without using any conversion at all
+
+    :return: dict
+    """
+    return __get_price(__h_url, from_curr, to_curr, markets, ts, e,
+                       extra_params, sign, try_conversion)
 
 
-def generateAvg(from_curr, to_curr, markets, extraParams=None, sign=False, tryConversion=True):
-    return __get_avg(__generateavgurl, from_curr, to_curr, markets, extraParams, sign, tryConversion)
+def generate_avg(from_curr, to_curr, e, extra_params=None,
+                 sign=False, try_conversion=True):
+    """
+    Get the price of any cryptocurrency in any other currency that you need
+    at a given timestamp. The price comes from the daily info - so it would be
+    the price at the end of the day GMT based on the requested TS.
+
+    :param from_curr: From symbol
+    :param to_curr: To symbol
+    :param e: Name of exchanges, include multiple
+    :param extra_params: Name of your application
+    :param sign: If set to true, the server will sign the requests.
+    :param try_conversion: (default True )If set to false, it will try to get
+    values without using any conversion at all
+
+    :return: dict
+    """
+    return __get_avg(__avg_url, from_curr, to_curr, e, extra_params,
+                     sign, try_conversion)
 
 
-def dayAvg(self, from_curr, to_curr, e=None, extraParams=None, sign=False, tryConversion=True,
-           avgType=None, UTCHourDiff=0, toTs=None):
-    return __get_avg(self.__dayavgurl, from_curr, to_curr, e, extraParams, sign,
-                     tryConversion, avgType, UTCHourDiff, toTs)
+def day_avg(from_curr, to_curr, e=None, extra_params=None, sign=False,
+            try_conversion=True, avg_type=None, utc_diff=0, to_ts=None):
+    """
+    Get day average price. The values are based on hourly vwap data and the
+    average can be calculated in different waysIt uses BTC conversion if data
+    is not available because the coin is not trading in the specified currency.
+    If tryConversion is set to false it will give you the direct data.
+    If no toTS is given it will automatically do the current day. Also for
+    different timezones use the UTCHourDiff paramThe calculation types are:
+    HourVWAP - a VWAP of the hourly close price,MidHighLow - the average
+    between the 24 H high and low. VolFVolT - the total volume from / the total
+    volume to (only avilable with tryConversion set to false so only for direct
+    trades but the value should be the most accurate price.
+
+    :param from_curr: From symbol
+    :param to_curr: To symbol
+    :param e: Name of exchanges, include multiple
+    :param extra_params: Name of your application
+    :param sign: If set to true, the server will sign the requests.
+    :param try_conversion: (default True )If set to false, it will try to get
+    values without using any conversion at all
+    :param avg_type: [ HourVWAP, MidHighLow, VolFVolT ]
+    :param utc_diff: By deafult it does UTC, if you want a different time zone
+    just pass the hour difference. For PST you would pass -8 for example.
+    :param to_ts: Hour unit
+
+    :return: dict
+    """
+    return __get_avg(__davg_url, from_curr, to_curr, e, extra_params, sign,
+                     try_conversion, avg_type, utc_diff, to_ts)
 
 
-def coinSnapshot(from_curr, to_curr):
-    return __get_url(__coinsnapshoturl + 'fsym=' + from_curr.upper() + '&tsym=' + to_curr.upper())
+def coin_snapshot(from_curr, to_curr):
+    """
+    Get data for a currency pair. It returns general block explorer information,
+     aggregated data and individual data for each exchange available.
+
+    :param from_curr: From symbol
+    :param to_curr: To symbol
+
+    :return: dict
+    """
+    return __get_url(__cs_url + 'fsym=' + from_curr.upper() +
+                     '&tsym=' + to_curr.upper())
 
 
-def coinSnapshotFullById(coin_id):
-    return __get_url(__coinsnapshotfull + 'id=' + str(coin_id))
+def coin_snapshot_id(coin_id):
+    """
+    CoinSnapshotFullById
+
+    Get the general, subs (used to connect to the streamer and to figure out
+    what exchanges we have data for and what are the exact coin pairs
+    of the coin) and the aggregated prices for all pairs available.
+
+    :param coin_id
+
+    :return: dict
+    """
+    return __get_url(__csf_url + 'id=' + str(coin_id))
 
 
-def topPairs(from_curr, to_curr=None, limit=None):
-    return __get_top_pairs(__toppairsurl, from_curr, to_curr, limit)
+def top_pairs(from_curr, to_curr=None, limit=None, sign=None):
+    """
+    TopPairs
+
+    Get top pairs by volume for a currency (always uses our aggregated data).
+    The number of pairs you get is the minimum of the limit you set (default 5)
+    and the total number of pairs available.
+
+    :param from_curr: From symbol
+    :param to_curr: To symbol
+    :param limit: Number of pairs returned. Max 2000.
+    :param sign: If set to true, the server will sign the requests.
+
+    :return: dict
+    """
+    return __get_top_pairs(__tp_url, from_curr, to_curr, limit, sign)
 
 
-def __get_price(baseurl, from_curr, to_curr, e=None, extraParams=None, sign=False,
-                tryConversion=True, markets=None, ts=None):
+def __get_price(base_url, from_curr, to_curr, e=None, extra_params=None,
+                sign=False, try_conversion=True, markets=None, ts=None):
+
     args = list()
     if isinstance(from_curr, str):
         args.append('fsym=' + from_curr.upper())
@@ -72,22 +222,25 @@ def __get_price(baseurl, from_curr, to_curr, e=None, extraParams=None, sign=Fals
         args.append('markets=' + ','.join(markets))
     if e:
         args.append('e=' + e)
-    if extraParams:
+    if extra_params:
         args.append('extraParams=' + extraParams)
     if sign:
         args.append('sign=true')
     if ts:
         args.append('ts=' + str(ts))
-    if not tryConversion:
+    if not try_conversion:
         args.append('tryConversion=false')
+
     if len(args) >= 2:
-        return __get_url(baseurl + '&'.join(args))
+        return __get_url(base_url + '&'.join(args))
     else:
         raise ValueError('Must have both fsym and tsym arguments.')
 
 
-def __get_avg(baseurl, from_curr, to_curr, markets=None, e=None, extraParams=None,
-              sign=False, tryConversion=True, avgType=None, UTCHourDiff=0, toTs=None):
+def __get_avg(base_url, from_curr, to_curr, markets=None, e=None,
+              extra_params=None, sign=False, try_conversion=True, avg_type=None,
+              utc_diff=0, to_ts=None):
+
     args = list()
     if isinstance(from_curr, str):
         args.append('fsym=' + from_curr.upper())
@@ -99,25 +252,27 @@ def __get_avg(baseurl, from_curr, to_curr, markets=None, e=None, extraParams=Non
         args.append('markets=' + ','.join(markets))
     if e:
         args.append('e=' + e)
-    if extraParams:
+    if extra_params:
         args.append('extraParams=' + extraParams)
     if sign:
         args.append('sign=true')
-    if avgType:
+    if avg_type:
         args.append('avgType=' + avgType)
-    if UTCHourDiff:
+    if utc_diff:
         args.append('UTCHourDiff=' + str(UTCHourDiff))
-    if toTs:
+    if to_ts:
         args.append('toTs=' + toTs)
-    if not tryConversion:
+    if not try_conversion:
         args.append('tryConversion=false')
+
     if len(args) >= 2:
-        return __get_url(baseurl + '&'.join(args))
+        return __get_url(base_url + '&'.join(args))
     else:
         raise ValueError('Must have both fsym and tsym arguments.')
 
 
-def __get_top_pairs(baseurl, from_curr, to_curr, limit):
+def __get_top_pairs(base_url, from_curr, to_curr, limit, sign):
+
     args = list()
     if isinstance(from_curr, str):
         args.append('fsym=' + from_curr.upper())
@@ -125,8 +280,11 @@ def __get_top_pairs(baseurl, from_curr, to_curr, limit):
         args.append('fsym=' + from_curr.upper())
     if limit:
         args.append('limit=' + str(limit))
+    if sign:
+        args.append('sign=true')
+
     if len(args) >= 1:
-        return __get_url(baseurl + '&'.join(args))
+        return __get_url(base_url + '&'.join(args))
     else:
         raise ValueError('Must set fsym argument.')
 
