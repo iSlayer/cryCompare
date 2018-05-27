@@ -25,7 +25,7 @@ Usage
 
 ```
 from crycompare import price as p
-print(p.coinSnapshot('btc', 'usd'))
+print(p.coin_snapshot('btc', 'usd'))
 ```
 
 price module: price, priceMulti, priceMultiFull, generateAvg, dayAvg, priceHistorical, coinSnapshot, coinSnahpshotFullById.
