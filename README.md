@@ -1,6 +1,7 @@
 # cryCompare
 Python wrapper for CryptoCompare public API (https://www.cryptocompare.com/api)
 
+
 Following API requests are supported:
 - CoinList
 - Price
@@ -18,8 +19,11 @@ Following API requests are supported:
 - socialStats
 - miningEquipment
 
-Wrapper requires following python modules:
-- requests
+Installation
+
+```
+pip install crycompare
+```
 
 Usage
 
@@ -28,12 +32,9 @@ from crycompare import price as p
 print(p.coin_snapshot('btc', 'usd'))
 ```
 
-price module: price, priceMulti, priceMultiFull, generateAvg, dayAvg, priceHistorical, coinSnapshot, coinSnahpshotFullById.
+price submodule: price, price_multi, price_multi_full, generate_avg, day_avg, price_historical, coin_snapshot, coin_snahpshot_id, top_pairs.
+history submodule: histo_minute, histo_hour, histo_day.
+social submodule: social_stats, mining_equipment
+
 For detailed documentation visit CryptoCompare API website.
-
-history module: histoMinute, histoHour, histoDay.
-For detailed documentation visit CryptoCompare API website.
-
-social module: socialStats, miningEquipment
-
 CryptoCompare API Documentation can be found at https://www.cryptocompare.com/api/#introduction
