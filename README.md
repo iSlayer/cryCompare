@@ -1,5 +1,6 @@
 # cryCompare
 Python wrapper for CryptoCompare public API (https://www.cryptocompare.com/api)
+
 Project information https://pypi.org/project/crycompare/
 
 Following API requests are supported:
