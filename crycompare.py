@@ -6,6 +6,7 @@ import warnings
 class Price:
 	def __init__(self):
 		self.__coinlisturl = 'https://www.cryptocompare.com/api/data/coinlist/'
+                #self.__coinlisturl = 'https://min-api.cryptocompare.com/data/all/coinlist/'
 		self.__priceurl = 'https://min-api.cryptocompare.com/data/price?'
 		self.__pricemultiurl = 'https://min-api.cryptocompare.com/data/pricemulti?'
 		self.__pricemultifullurl = 'https://min-api.cryptocompare.com/data/pricemultifull?'
